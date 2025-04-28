@@ -3,106 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment Integration</title>
-    <!-- Paystack M-Pesa/Airtel Money Donation Script -->
+    <title>Mobile Money Payment</title>
     <script src="https://js.paystack.co/v1/inline.js"></script>
     <style>
-        .payment-container {
-            max-width: 500px;
-            margin: 20px auto;
+        /* Reset and base styles */
+        * {
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            background: #f2f6f9;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-        
+
+        .payment-container {
+            background: #ffffff;
+            max-width: 450px;
+            width: 100%;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+
         .payment-container h3 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 20px;
+            color: #228B22;
+            margin-bottom: 10px;
+            font-size: 26px;
         }
-        
+
         .payment-container p {
-            text-align: center;
-            color: #666;
+            color: #555;
+            font-size: 15px;
+            margin-bottom: 25px;
+        }
+
+        .input-group {
+            text-align: left;
             margin-bottom: 20px;
         }
-        
-        .input-group {
-            margin-bottom: 15px;
-        }
-        
+
         .input-group label {
             display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: #555;
+            margin-bottom: 6px;
+            font-weight: 600;
+            font-size: 14px;
+            color: #333;
         }
-        
+
         .input-group input {
             width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
             font-size: 16px;
+            transition: all 0.3s ease;
         }
-        
+
+        .input-group input:focus {
+            border-color: #32CD32;
+            outline: none;
+            box-shadow: 0 0 5px rgba(50,205,50,0.4);
+        }
+
         .mobilemoney-btn {
             width: 100%;
-            padding: 12px;
-            background: linear-gradient(to right, #32CD32, #228B22);
+            padding: 14px;
+            background: linear-gradient(135deg, #32CD32, #228B22);
             color: white;
+            font-size: 17px;
+            font-weight: 600;
             border: none;
-            border-radius: 4px;
-            font-size: 16px;
+            border-radius: 8px;
             cursor: pointer;
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 10px;
-            margin-top: 10px;
+            gap: 8px;
+            transition: background 0.4s ease, transform 0.2s;
         }
-        
+
         .mobilemoney-btn:hover {
-            opacity: 0.9;
+            background: linear-gradient(135deg, #2eb82e, #1e7d1e);
+            transform: translateY(-2px);
         }
-        
-        .mpesa-part, .airtel-part {
-            display: flex;
-            align-items: center;
-        }
-        
+
         .mpesa-part::before {
             content: "M-Pesa";
+            font-weight: bold;
         }
-        
+
         .airtel-part::before {
-            content: "/Airtel Money";
+            content: "/ Airtel Money";
+            font-weight: bold;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
         }
     </style>
 </head>
 <body>
+
     <div class="payment-container">
-        <h3>Support Our Work</h3>
-        <p>Your support helps us grow and provide better services. Every contribution counts!</p>
-        
-        <!-- Paystack M-Pesa/Airtel Money Donate Section -->
+        <h3>Support Our Mission</h3>
+        <p>Your support helps us grow and reach more people. Every contribution matters!</p>
+
         <div id="paystack-donate-container">
             <div class="input-group">
                 <label for="phone-number">Mobile Number</label>
-                <input type="tel" id="phone-number" placeholder="Enter M-Pesa/Airtel Number (07XXXXXXXX)" pattern="07[0-9]{8}">
+                <input type="tel" id="phone-number" placeholder="07XXXXXXXX" pattern="07[0-9]{8}">
             </div>
-            
+
             <div class="input-group">
                 <label for="user-email">Email (Optional)</label>
-                <input type="email" id="user-email" placeholder="Enter Email">
+                <input type="email" id="user-email" placeholder="example@email.com">
             </div>
-            
+
             <div class="input-group">
                 <label for="donation-amount">Amount (KES)</label>
-                <input type="number" id="donation-amount" placeholder="Enter Amount" min="10">
+                <input type="number" id="donation-amount" placeholder="Enter amount" min="10">
             </div>
-            
+
             <button id="paystack-donate-button" class="mobilemoney-btn">
                 <span class="mpesa-part"></span>
                 <span class="airtel-part"></span>
@@ -111,16 +142,15 @@
     </div>
 
     <script>
-        // Paystack Donation
         document.getElementById('paystack-donate-button').addEventListener('click', function(e) {
             e.preventDefault();
-            
+
             const phone = document.getElementById('phone-number').value.trim();
             let email = document.getElementById('user-email').value.trim();
             const amount = document.getElementById('donation-amount').value.trim();
 
             if (!phone.match(/^07[0-9]{8}$/)) {
-                alert("Please enter a valid Kenyan number starting with 07 followed by 8 digits");
+                alert("Please enter a valid Kenyan number starting with 07 followed by 8 digits.");
                 return;
             }
 
@@ -137,9 +167,9 @@
             }
 
             const handler = PaystackPop.setup({
-                key: "", // Replace with your Paystack public key
+                key: "", // Replace with your actual Paystack Public Key
                 email: email,
-                amount: amount * 100,
+                amount: amount * 100, // in kobo
                 currency: "KES",
                 channels: ["mobile_money"],
                 metadata: {
@@ -156,12 +186,13 @@
                     alert("Payment successful! Transaction ID: " + response.reference);
                 },
                 onClose: function() {
-                    console.log("Payment window closed");
+                    console.log("Payment popup closed");
                 }
             });
 
             handler.openIframe();
         });
     </script>
+
 </body>
 </html>
