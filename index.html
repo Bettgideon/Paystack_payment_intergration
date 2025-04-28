@@ -15,7 +15,7 @@
 
         body {
             font-family: 'Poppins', Arial, sans-serif;
-            background: #f2f6f9;
+            background: #f5f5f7;
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -27,88 +27,165 @@
             background: #ffffff;
             max-width: 450px;
             width: 100%;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             text-align: center;
-            animation: fadeIn 1s ease-in-out;
+            animation: fadeIn 0.8s ease-in-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .payment-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, #39b54a 0%, #39b54a 50%, #e40000 50%, #e40000 100%);
         }
 
         .payment-container h3 {
-            color: #228B22;
-            margin-bottom: 10px;
-            font-size: 26px;
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 28px;
+            font-weight: 700;
         }
 
         .payment-container p {
-            color: #555;
-            font-size: 15px;
-            margin-bottom: 25px;
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 30px;
+            line-height: 1.5;
         }
 
         .input-group {
             text-align: left;
-            margin-bottom: 20px;
+            margin-bottom: 22px;
         }
 
         .input-group label {
             display: block;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
             font-weight: 600;
-            font-size: 14px;
-            color: #333;
+            font-size: 15px;
+            color: #444;
         }
 
         .input-group input {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
+            padding: 14px 16px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
             font-size: 16px;
             transition: all 0.3s ease;
+            background-color: #f9f9f9;
         }
 
         .input-group input:focus {
-            border-color: #32CD32;
+            border-color: #39b54a;
             outline: none;
-            box-shadow: 0 0 5px rgba(50,205,50,0.4);
+            box-shadow: 0 0 0 3px rgba(57, 181, 74, 0.2);
+            background-color: #fff;
         }
 
-        .mobilemoney-btn {
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, #32CD32, #228B22);
+        .payment-options {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .payment-option {
+            flex: 1;
+            padding: 15px 0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .mpesa-option {
+            background-color: rgba(57, 181, 74, 0.1);
+            color: #39b54a;
+            border-color: #39b54a;
+        }
+
+        .airtel-option {
+            background-color: rgba(228, 0, 0, 0.1);
+            color: #e40000;
+            border-color: #e40000;
+        }
+
+        .payment-option.selected {
+            transform: scale(1.05);
+            font-weight: 600;
+        }
+
+        .payment-option img {
+            height: 30px;
+            margin-bottom: 8px;
+        }
+
+        .payment-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .mpesa-btn {
+            flex: 1;
+            padding: 16px 10px;
+            background: linear-gradient(135deg, #39b54a, #00732f);
             color: white;
             font-size: 17px;
             font-weight: 600;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-            transition: background 0.4s ease, transform 0.2s;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(57, 181, 74, 0.3);
         }
 
-        .mobilemoney-btn:hover {
-            background: linear-gradient(135deg, #2eb82e, #1e7d1e);
+        .mpesa-btn:hover {
             transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(57, 181, 74, 0.4);
         }
 
-        .mpesa-part::before {
-            content: "M-Pesa";
-            font-weight: bold;
+        .airtel-btn {
+            flex: 1;
+            padding: 16px 10px;
+            background: linear-gradient(135deg, #e40000, #b50000);
+            color: white;
+            font-size: 17px;
+            font-weight: 600;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(228, 0, 0, 0.3);
         }
 
-        .airtel-part::before {
-            content: "/ Airtel Money";
+        .airtel-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(228, 0, 0, 0.4);
+        }
+
+        .provider-logo {
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 8px;
             font-weight: bold;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hidden {
+            display: none;
         }
     </style>
 </head>
@@ -116,7 +193,7 @@
 
     <div class="payment-container">
         <h3>Support Our Mission</h3>
-        <p>Your support helps us grow and reach more people. Every contribution matters!</p>
+        <p>Your support helps us grow and reach more people. Every contribution makes a difference!</p>
 
         <div id="paystack-donate-container">
             <div class="input-group">
@@ -134,17 +211,20 @@
                 <input type="number" id="donation-amount" placeholder="Enter amount" min="10">
             </div>
 
-            <button id="paystack-donate-button" class="mobilemoney-btn">
-                <span class="mpesa-part"></span>
-                <span class="airtel-part"></span>
-            </button>
+            <div class="payment-buttons">
+                <button id="mpesa-button" class="mpesa-btn">
+                    <span class="provider-logo">M-PESA</span> Pay
+                </button>
+                <button id="airtel-button" class="airtel-btn">
+                    <span class="provider-logo">Airtel Money</span>
+                </button>
+            </div>
         </div>
     </div>
 
     <script>
-        document.getElementById('paystack-donate-button').addEventListener('click', function(e) {
-            e.preventDefault();
-
+        // Function to handle payment processing
+        function processPayment(provider) {
             const phone = document.getElementById('phone-number').value.trim();
             let email = document.getElementById('user-email').value.trim();
             const amount = document.getElementById('donation-amount').value.trim();
@@ -174,11 +254,17 @@
                 channels: ["mobile_money"],
                 metadata: {
                     phone: formattedPhone,
+                    payment_provider: provider,
                     custom_fields: [
                         {
                             display_name: "Mobile Number",
                             variable_name: "mobile_number",
                             value: formattedPhone
+                        },
+                        {
+                            display_name: "Provider",
+                            variable_name: "provider",
+                            value: provider
                         }
                     ]
                 },
@@ -191,6 +277,17 @@
             });
 
             handler.openIframe();
+        }
+
+        // Event listeners for buttons
+        document.getElementById('mpesa-button').addEventListener('click', function(e) {
+            e.preventDefault();
+            processPayment('M-PESA');
+        });
+
+        document.getElementById('airtel-button').addEventListener('click', function(e) {
+            e.preventDefault();
+            processPayment('Airtel Money');
         });
     </script>
 
