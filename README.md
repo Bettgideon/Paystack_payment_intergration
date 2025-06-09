@@ -1,5 +1,6 @@
 # Mobile Money Payment Integration (M-Pesa & Airtel Money via Paystack)
 
+
 ## Overview
 This project provides a seamless way to accept mobile money payments (M-Pesa and Airtel Money) in Kenya through the **Paystack** payment gateway.  
 It offers a **responsive**, **secure**, and **user-friendly** form that collects essential payment details and processes transactions efficiently.
